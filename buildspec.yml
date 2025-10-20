@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Zipping the source code..."
+      - zip -r source.zip ./* ./.*
+      - echo "Uploading source code to S3 for Image Builder..."
+      # CodePipeline이 가져온 최신 코드를 S3 버킷으로 업로드
+      - aws s3 cp source.zip s3://source-for-imagebuilder-kmj/latest/source.zip
+
+  build:
+    commands:
+      - echo "Starting EC2 Image Builder pipeline..."
+      # 미리 생성해 둔 Image Builder Pipeline의 ARN을 지정
+      - aws imagebuilder start-image-pipeline-execution --image-pipeline-arn "arn:aws:imagebuilder:ap-northeast-2:131571435824:image-pipeline/react-app-pipeline"
+
+artifacts:
+  files:
+    - '**/*' # 필요 시 빌드 결과물을 아티팩트로 지정
