@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo "Zipping the source code..."
-      - zip -r source.zip ./* ./.*
+      - zip -r source.zip .
       - echo "Uploading source code to S3 for Image Builder..."
       # CodePipeline이 가져온 최신 코드를 S3 버킷으로 업로드
       - aws s3 cp source.zip s3://source-for-imagebuilder-kmj/latest/source.zip
