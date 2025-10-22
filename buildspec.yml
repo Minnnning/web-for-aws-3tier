@@ -19,7 +19,7 @@ phases:
       - aws s3 sync build/ s3://kmj-source-for-imagebuilder-web/latest-build/ --delete
       - echo "Starting EC2 Image Builder pipeline execution..."
       # 빌드된 파일을 S3에 올린 후, 이 파일을 사용할 Image Builder 파이프라인을 실행
-      #- aws imagebuilder start-image-pipeline-execution --image-pipeline-arn "arn:aws:imagebuilder:ap-northeast-2:131571435824:image-pipeline/react-app-pipeline"
+      - aws imagebuilder start-image-pipeline-execution --image-pipeline-arn "arn:aws:imagebuilder:ap-northeast-1:286387522454:image-pipeline/kmj-web-ami-pipeline"
 
 artifacts:
   files:
