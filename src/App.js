@@ -88,7 +88,7 @@ function App() {
   return (
     <div className="container">
       <header>
-        <h1>Simple Board 3</h1>
+        <h1>Simple Board 4</h1>
         <p className="backend-info">
           연결된 백엔드: <span>{backendAddress}</span>
         </p>
