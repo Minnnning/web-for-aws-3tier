@@ -2,7 +2,6 @@ version: 0.2
 
 phases:
   install:
-    # CodeBuild 환경에 Node.js 18 버전을 명시적으로 설치합니다.
     runtime-versions:
       nodejs: 18
     commands:
@@ -12,18 +11,15 @@ phases:
   build:
     commands:
       - echo "Building the React application..."
-      # React 앱을 프로덕션용으로 빌드합니다. 'build' 폴더가 생성됩니다.
       - npm run build
 
   post_build:
     commands:
       - echo "Uploading build artifacts to S3..."
-      # 'build/' 폴더의 내용물을 S3 버킷의 'latest-build/' 경로로 동기화합니다.
-      # --delete 옵션은 이전에 업로드된 파일이 있다면 삭제하여 항상 최신 상태를 유지합니다.
       - aws s3 sync build/ s3://source-for-imagebuilder-kmj/latest-build/ --delete
       - echo "Starting EC2 Image Builder pipeline execution..."
-      # 빌드된 파일을 S3에 올린 후, 이 파일을 사용할 Image Builder 파이프라인을 실행시킵니다.
-      - aws imagebuilder start-image-pipeline-execution --image-pipeline-arn "arn:aws:imagebuilder:ap-northeast-2:131571435824:image-pipeline/react-app-pipeline"
+      # 빌드된 파일을 S3에 올린 후, 이 파일을 사용할 Image Builder 파이프라인을 실행
+      #- aws imagebuilder start-image-pipeline-execution --image-pipeline-arn "arn:aws:imagebuilder:ap-northeast-2:131571435824:image-pipeline/react-app-pipeline"
 
 artifacts:
   files:
