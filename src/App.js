@@ -16,10 +16,9 @@ function App() {
   // 백엔드 서버 주소를 확인하는 함수 (로드밸런싱 확인용)
   const fetchBackendAddress = async () => {
     try {
-      // '/api/health' 엔드포인트는 백엔드에서 서버 정보를 반환하도록 구현해야 합니다.
       const response = await fetch('/api/health');
       const data = await response.json();
-      // 백엔드 응답에 'hostname' 또는 'server_ip' 같은 필드가 있다고 가정
+      
       setBackendAddress(data.message || '정보 없음');
     } catch (error) {
       console.error("Error fetching backend address:", error);
